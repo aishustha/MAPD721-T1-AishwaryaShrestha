@@ -8,7 +8,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 public class NotificationDecorator {
     private static final String TAG = "NotificationDecorator";
@@ -16,12 +19,14 @@ public class NotificationDecorator {
     private final Context context;
     private final NotificationManager notificationManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationDecorator(Context context, NotificationManager notificationManager) {
         this.context = context;
         this.notificationManager = notificationManager;
         createChannel(notificationManager, CHANNEL_ID);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createChannel(NotificationManager notificationManager, String channelId){
         NotificationChannel notificationChannel = new NotificationChannel(channelId, "Chat Bot",
                 NotificationManager.IMPORTANCE_LOW);
@@ -31,6 +36,7 @@ public class NotificationDecorator {
         notificationManager.createNotificationChannel(notificationChannel);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void displaySimpleNotification(String title, String contentText) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
